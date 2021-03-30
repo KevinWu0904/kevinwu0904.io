@@ -1,8 +1,8 @@
 ---
-title: Pages
+title: 最新博客
 draft: false
 # Section you want to display
-section: posts
+section: blogs
 # Pages count
 count: 5
 # Options: card, plain and masonry.

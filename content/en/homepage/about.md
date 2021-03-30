@@ -1,10 +1,23 @@
 ---
-title: Blank
+title: Kevin Wu
 draft: false
+role: Software Engineer
+avatar: images/avatar.jpg
+bio: Golang/MicroService/DevOps/CloudNative
+organization:
+  name: bytedance
+  url: https://bytedance.com/
+social:
+  - icon: envelope
+    iconPack: fas
+    url: mailto:kevinwu0904@outlook.com
+  - icon: github
+    iconPack: fab
+    url: https://github.com/KevinWu0904/
 
-weight: 5
+weight: 1
 widget:
-  handler: blank
+  handler: about
 
   # Options: sm, md, lg and xl. Default is md.
   width:
@@ -17,16 +30,12 @@ widget:
   
   background:
     # Options: primary, secondary, tertiary or any valid color value. Default is primary.
-    color:
-    image: images/hero-left.jpg
+    color: secondary
+    image:
     # Options: auto, cover and contain. Default is auto.
-    size: cover
+    size:
     # Options: center, top, right, bottom, left.
     position:
     # Options: fixed, local, scroll.
     attachment: 
 ---
-
-<div style="text-align:center">
-  <p>Write anything you like here!</p>
-</div>

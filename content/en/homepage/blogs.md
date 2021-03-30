@@ -1,13 +1,16 @@
 ---
-title: Vintage
+title: Recent Blogs
 draft: false
-slogan: We are all in the gutter, but some of us are looking at the stars.
-imgLeft: images/hero-left.jpg
-imgRight: images/hero-right.jpg
+# Section you want to display
+section: blogs
+# Pages count
+count: 5
+# Options: card, plain and masonry.
+style: plain
 
-weight: 4
+weight: 2
 widget:
-  handler: vintage
+  handler: pages
 
   # Options: sm, md, lg and xl. Default is md.
   width:
@@ -17,10 +20,10 @@ widget:
     position:
     # Options: sm, md, lg and xl. Default is md.
     scale:
-    
+
   background:
     # Options: primary, secondary, tertiary or any valid color value. Default is primary.
-    color: secondary
+    color:
     image:
     # Options: auto, cover and contain. Default is auto.
     size:

@@ -13,7 +13,7 @@ pwd用于显示当前所在工作目录的绝对路径。
 
 ## 使用示例
 
-```
+```bash
 kevinwu@debian:/usr/local/bin$ pwd
 /usr/local/bin
 ```

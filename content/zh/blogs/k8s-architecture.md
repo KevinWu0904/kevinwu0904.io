@@ -10,7 +10,7 @@ lastmod: '2021-04-02'
 draft: false
 ---
 
-![](/images/blogs-k8s-architecture/k8s-logo.png)
+![](/images/blogs-k8s-common/k8s-logo.png)
 
 [Kubernetes](https://kubernetes.io/)的诞生不仅终结了容器编排的纷争，更带动了“云原生”理念的火热。作为[CNCF](https://www.cncf.io/)核心项目的Kubernetes同时极大提升了CNCF本身的知名度。
 

@@ -8,7 +8,7 @@ theme: github.com/wangchucheng/hugo-eureka
 
 paginate: 10
 copyright: >
-  &copy; 2021 <a href="https://kevinwu0904.cn/">Kevin Wu</a>
+  &copy; 2021 <a href="https://kevinwu0904.top/">Kevin Wu</a>
 enableEmoji: true
 enableGitInfo: false
 summaryLength: 75

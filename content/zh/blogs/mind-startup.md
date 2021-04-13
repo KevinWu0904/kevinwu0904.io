@@ -3,6 +3,8 @@ title: 新的开始
 toc: true
 authors:
   - kevinwu
+tags:
+  - 随笔
 date: '2021-03-30'
 lastmod: '2021-03-30'
 draft: false
@@ -105,7 +107,6 @@ draft: false
   * KeyResult：重新学习c语言，掌握c的语法和基本原理，为后续阅读Linux内核源码铺垫。
 * Objective 3：计算机基础
   * KeyResult：重新阅读操作系统导论等理论书籍，再次回顾操作系统基本原理。
-  * KeyResult：启动《每日一个Linux命令》系列，总结归纳常见命令和常见参数，反复背诵记忆。
 
 ## 结束语
 这里是文章的结尾，却也是我个人新的开始。这一步，我选择走出舒适区，但我相信未来的我一定会更加强大！

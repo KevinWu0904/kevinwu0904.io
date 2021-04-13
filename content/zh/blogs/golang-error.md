@@ -7,7 +7,7 @@ tags:
   - golang
 date: '2021-04-12'
 lastmod: '2021-04-12'
-draft: false
+draft: true
 ---
 
 ![](/images/blogs-golang-common/golang-logo.png)

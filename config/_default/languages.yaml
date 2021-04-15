@@ -3,7 +3,7 @@ en:
   languageName: English
   # Uncomment for multilingual sites, and move the default content into corresponding sub-folder.
   contentDir: content/en
-  title: Boonie Bears
+  title: Geek Bears
 
 # Uncomment for multilingual sites, and customize the following config.
 zh:

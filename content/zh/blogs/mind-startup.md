@@ -99,14 +99,15 @@ draft: false
 现在是2021年3月底，我为自己定制的4、5双月OKR如下：
 
 * Objective 1：深入理解云原生核心组件-Kubernetes
-  * KeyResult：通读k8s核心存储etcd源码，沉淀至少2篇博客。
-  * KeyResult：通读k8s核心组件kube-apiserver，kube-controller-manager，kube-scheduler，沉淀至少4篇博客。
+  * KeyResult：通读k8s核心存储etcd源码，沉淀至少1篇博客。
+  * KeyResult：通读k8s核心组件kube-apiserver，kube-controller-manager，kube-scheduler，沉淀至少3篇博客。
   * KeyResult：极客时间[《深入剖析Kubernetes》](https://time.geekbang.org/column/intro/116)精读2遍。
-* Objective 2：提升编程语言
-  * KeyResult：通读go语言runtime源码，沉淀至少2篇博客。
-  * KeyResult：重新学习c语言，掌握c的语法和基本原理，为后续阅读Linux内核源码铺垫。
-* Objective 3：计算机基础
-  * KeyResult：重新阅读操作系统导论等理论书籍，再次回顾操作系统基本原理。
+* Objective 2：深入理解go语言
+  * KeyResult：context源码阅读，沉淀1篇博客。
+  * KeyResult：总结error handling最佳实践，沉淀1篇博客。
+  * KeyResult：总结go依赖管理，沉淀1篇博客。
+* Objective 3：架构设计精粹系列
+  * KeyResult：总结2个业务场景的架构设计，开启架构设计精粹系列文章。
 
 ## 结束语
 这里是文章的结尾，却也是我个人新的开始。这一步，我选择走出舒适区，但我相信未来的我一定会更加强大！

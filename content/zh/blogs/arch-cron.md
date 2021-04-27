@@ -6,7 +6,7 @@ authors:
 tags:
   - architecture
 date: '2021-04-26'
-lastmod: '2021-04-26'
+lastmod: '2021-04-27'
 draft: false
 ---
 
@@ -100,8 +100,54 @@ CronJob的基本形态：定时周期+任务。
 
 至此，一个高可用的CronJob任务调度框架基本完成。我们可以围绕这个框架的核心要素来进一步完善各种高级特性。
 
+## 高级特性
+### 管理后台
+一个功能齐全的CronJob任务调度框架通常会包括可视化的管理后台。管理后台主要提供：
+
+1. CronJob任务的列表展示、创建、修改和删除。
+2. CronJob任务的运行历史、日志等信息。
+3. 参与CronJob框架节点IP列表和主节点等信息。
+4. ...
+
+因此，为了进一步完善CronJob调度器的管理后台能力，我们可以抽象并独立出Cron API Server。此时，CronJob任务调度框架的架构大致如下：
+
+![](/images/blogs-arch-cron/cron-5.png)
+
+由UI/API/DB组成Cron Admin的基本功能，CronJob调度器集群的Master将会从API Server中获取需要定时运行的任务并开启时钟运行。运行任务的具体内容则是通过调用业务服务的API Gateway去完成，通常API Gateway会内置负载均衡的功能，将最终的任务发往业务服务执行。
+
+### 任务分片
+任务分片是CronJob调度框架提升任务吞吐的优化措施，任务分片需要业务服务本身配合来完成。由于任务的具体内容其实是业务服务自定义的，因此若业务方能够根据自身特点提供一种合理的方式来划分任务执行粒度，将不同的任务分割到不同的切片当中。
+
+对于能够定义出分片key的任务，CronJob调度框架可以将任务切分并发往API Gateway，再由API Gateway转发给业务服务执行：
+
+![](/images/blogs-arch-cron/cron-6.png)
+
+### 调度策略
+架构拆分至此，我们可以发现一个关键点：任务调度本质上是由API Gateway代为完成的，但通常API Gateway只会考虑的负载均衡，不会考虑更加复杂的调度策略。因此，如果CronJob调度框架希望在这个功能点上面发力的话，可以进一步完善注册中心。
+
+![](/images/blogs-arch-cron/cron-7.png)
+
+业务服务将节点信息上报给注册中心，这样一来CronJob调度器Master就能够获取到节点列表，进一步可以定制各种调度策略：
+
+1. RoundRobin
+2. VIP节点优先
+3. 业务节点分组
+4. ...
+
+### 失败重试
+失败重试可以从两个角度去完善：
+
+1. 业务服务本身执行任务失败的时候，可以尝试重试。
+2. 业务服务本身执行任务失败的时候，可以有机制通知CronJob调度器Master，再由调度器重新选择其它节点重试。
+
+因此，我们可以抽象出一个Job SDK嵌入到业务服务。将包括注册、Job Executor接口定义、重试机制等等逻辑进一步封装，并提供统一的接入方式。
+
+![](/images/blogs-arch-cron/cron-8.png)
+
 ## 参考
-1. [https://en.wikipedia.org/wiki/Cron](https://en.wikipedia.org/wiki/Cron)
+1. [Cron维基百科](https://en.wikipedia.org/wiki/Cron)
+2. [xxl-job](https://github.com/xuxueli/xxl-job)
+3. [cronsun](https://github.com/shunfei/cronsun)
 
 ## 总结
-本文介绍了CronJob的使用场景和基本形态，并由浅入深详解CronJob任务调度架构设计的关键要素。
+本文介绍了CronJob的使用场景和基本形态，并由浅入深详解CronJob任务调度架构设计的关键要素和高级特性扩展。

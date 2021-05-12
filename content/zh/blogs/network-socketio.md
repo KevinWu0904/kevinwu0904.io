@@ -355,7 +355,7 @@ GET /socket.io/?EIO=4&transport=polling&t=N8hyd6w
 {"sid":...  => the Engine.IO handshake data
 ```
 
-注意：参数`t`用于防止浏览器改请求被缓存。
+注意：参数`t`用于防止浏览器缓存该请求。
 
 * Request n°2 (namespace connection request)
 ```

@@ -7,7 +7,7 @@ tags:
   - k8s
 date: '2021-04-11'
 lastmod: '2021-04-11'
-draft: true
+draft: false
 ---
 
 ![](/images/blogs-k8s-common/k8s-logo.png)

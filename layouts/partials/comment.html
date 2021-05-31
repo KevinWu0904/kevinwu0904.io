@@ -1,7 +1,14 @@
-<script src="https://utteranc.es/client.js"
-        repo="KevinWu0904/kevinwu0904.io"
-        issue-term="pathname"
-        theme="github-light"
-        crossorigin="anonymous"
-        async>
+<div id="gitalk-container" style="border:0"></div>
+<script>
+    var gitalk = new Gitalk({
+        clientID: '692019a911bf8e4c14e8',
+        clientSecret: '93f306c9821cb413613c363366de47e9792b1d03',
+        repo: 'kevinwu0904.io',
+        owner: 'KevinWu0904',
+        admin: ['KevinWu0904'],
+        id: {{ .Title }}, // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+    })
+
+    gitalk.render('gitalk-container')
 </script>

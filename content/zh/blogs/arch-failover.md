@@ -39,14 +39,14 @@ draft: false
 * 服务层：处理业务逻辑。服务层的代表组件是SpringBoot、Dubbo等，主要负责处理复杂的业务逻辑。
 * 存储层：存储业务数据。存储层的代表组件是MySQL、Redis等，主要存储业务核心数据、提供分布式缓存。
 
-![](/images/blogs-arch-failover/single-dc.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/single-dc.png)
 
 而在实际的生产环境中，每一层组件均会采用不同的集群策略：
 * 接入层：接入层是无状态层。因此通常会部署多个实例组成集群。集群中的每一个实例均接收业务流量，解决高并发的需求；另一方面，若集群中的某一个实例宕机则业务流量能够自动转移到其它健康实例，解决高可用的需求。
 * 服务层：服务层是无状态层。因此同样会部署多个业务服务实例，兼顾高并发和高可用。
 * 存储层：存储层是有状态层。以MySQL为例，通常采用主从集群架构，主从之间采用同步复制，并对业务提供读写分离的能力。读写分离能够有效均衡业务的写操作和读操作对DB的压力，解决一定程度的高并发需求；另一方面，当主节点宕机时从节点能够被提升为主节点继续提供服务，解决一定程度的高可用需求。
 
-![](/images/blogs-arch-failover/single-dc-impl.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/single-dc-impl.png)
 
 至此，单机房的高并发和高可用架构雏形基本完成。然而，现实生活中往往存在各种天灾人祸，例如：机房网络故障、机房整体断电、人为误操作等等，这类事故的发生概率虽然极小，但万一遇到，会对企业造成不可恢复的巨大财富损失。
 
@@ -55,7 +55,7 @@ draft: false
 ### 同城双机房架构
 同城双机房架构是目前主流的性价比极高的灾备方案。所谓同城，指代两个可用机房的物理距离相近，位于同一座城市。例如：字节跳动国内自建的核心机房位于河北廊坊和河北怀来两地，同属于河北省。双机房之间通过高速专线连通网络，由于双机房距离相近，网络延时极低对业务可以忽略不计，因此也非常适合存储层组件的同步复制。
 
-![](/images/blogs-arch-failover/double-dc-backup.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/double-dc-backup.png)
 
 当主机房灾难发生时，通过快速的DNS切换将业务流量迅速导入副机房。同时对于存储层的组件来说，将副机房的备份停止并切换为主。理论上，整体业务能够在分钟级别恢复并且能够保障数据不丢失。
 
@@ -67,18 +67,18 @@ draft: false
 
 同城双机房双活架构是对同城双机房架构的进阶做法，双机房均是活跃的数据中心，同时提供业务流量。对于无状态的接入层和服务层来说无需任何改造，而对于有状态的存储层来说需要进行一定改造：
 
-![](/images/blogs-arch-failover/double-dc-active.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/double-dc-active.png)
 
 这是双活架构的常见做法，无状态的接入层和服务层双活部署，有状态的存储层主备部署。这样一来，无论是哪个数据中心出现灾难，都可以快速切换到另外一个数据中心继续提供服务。
 
 但是该架构也存在一个问题：双机房存储层强依赖于网络高速专线，假如专线故障，那么同步将会中断，形成孤岛。此时，存储层的备份机房无法正常工作，业务流量需要全量切换到主机房。
 
-![](/images/blogs-arch-failover/double-dc-active-network-issue.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/double-dc-active-network-issue.png)
 
 ### 两地三中心
 两地三中心是在同城双机房架构的基础上引入一个异地灾备中心，所谓三中心指数据中心、同城灾备中心和异地灾备中心。异地灾备由于地理位置相隔较远，因此技术上无法采用同步复制，而需要采用异步复制。
 
-![](/images/blogs-arch-failover/treble-dc.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-failover/treble-dc.png)
 
 异地灾备能够防止更加严重的灾害，例如地震、水灾、战争等。不过由于异地灾备中心通常采用异步复制技术来备份业务核心数据，因此在灾害发生的时候通常会伴随少量的数据丢失情况。
 

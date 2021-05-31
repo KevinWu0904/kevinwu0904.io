@@ -10,7 +10,7 @@ lastmod: '2021-04-03'
 draft: false
 ---
 
-![](/images/blogs-golang-common/golang-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-common/golang-logo.png)
 
 Golang在DevOps领域备受欢迎的原因之一，就是能够快速实现命令行工具。无论是多么复杂的源代码，最终都能够只被编译成一个简单的二进制可执行文件，这种极简的安装部署方式为开发带来极大的便利。
 
@@ -293,7 +293,7 @@ func runBuild(ctx context.Context, cmd *base.Command, args []string) {
 #### 小结
 总结一下，整个Command的设计结构是比较清晰的，通过sub commands和flags来区分不同的功能，进入不同的Run方法。
 
-![go-cli](/images/blogs-golang-cli/go-command-line.png)
+![go-cli](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-cli/go-command-line.png)
 
 ### 基于第三方框架实现
 基于第三方框架实现命令行的原理与上述相同，也是基于flag包解析参数，同时自定义Command结构体。不过第三方框架通常已经定义好成熟稳定且功能丰富的Command，开发者只需要简单复用其框架即可快速开发出高效的命令行工具。

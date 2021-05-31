@@ -75,19 +75,19 @@ CronJob的基本形态：定时周期+任务。
 ### 单实例不解耦
 假如业务本身是单实例的，我们当然可以直接在业务服务的后台运行一个CronJob调度器，这是最简单的业务结构：
 
-![](/images/blogs-arch-cron/cron-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-1.png)
 
 ### 多实例不解耦
 但通常，业务服务在生产环境中都会采用多实例部署，防止单点故障：
 
-![](/images/blogs-arch-cron/cron-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-2.png)
 
 这时，不同业务服务实例会运行不同的CronJob调度器，这适用于任务不需要独占的场景。而对于任务需要独占的场景则无法解决，则要考虑引入分布式锁等中间件。
 
 ### CronJob调度器解耦
 换个方向考虑，我们将CronJob调度器独立出来成为一个单独的服务并单实例部署。这种架构也能够解决任务独占的场景：
 
-![](/images/blogs-arch-cron/cron-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-3.png)
 
 但这种架构的缺点在于：
 * CronJob调度器的升级过程难以协调。升级过程中如果先停后启（先停止旧实例再升级新实例），那么停止过程中的CronJob调度器也停止工作了。升级过程中如果先启后停（先启动新实例再停止旧实例），虽然CronJob调度器持续工作，但会在过渡期同时存在两个CronJob调度器同时工作而导致冲突。
@@ -96,7 +96,7 @@ CronJob的基本形态：定时周期+任务。
 ### 高可用CronJob调度器解耦
 因此考虑CronJob调度器本身也需要高可用，这里面有2个思路：分布式锁和分布式选主。
 
-![](/images/blogs-arch-cron/cron-4.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-4.png)
 
 至此，一个高可用的CronJob任务调度框架基本完成。我们可以围绕这个框架的核心要素来进一步完善各种高级特性。
 
@@ -111,7 +111,7 @@ CronJob的基本形态：定时周期+任务。
 
 因此，为了进一步完善CronJob调度器的管理后台能力，我们可以抽象并独立出Cron API Server。此时，CronJob任务调度框架的架构大致如下：
 
-![](/images/blogs-arch-cron/cron-5.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-5.png)
 
 由UI/API/DB组成Cron Admin的基本功能，CronJob调度器集群的Master将会从API Server中获取需要定时运行的任务并开启时钟运行。运行任务的具体内容则是通过调用业务服务的API Gateway去完成，通常API Gateway会内置负载均衡的功能，将最终的任务发往业务服务执行。
 
@@ -120,12 +120,12 @@ CronJob的基本形态：定时周期+任务。
 
 对于能够定义出分片key的任务，CronJob调度框架可以将任务切分并发往API Gateway，再由API Gateway转发给业务服务执行：
 
-![](/images/blogs-arch-cron/cron-6.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-6.png)
 
 ### 调度策略
 架构拆分至此，我们可以发现一个关键点：任务调度本质上是由API Gateway代为完成的，但通常API Gateway只会考虑的负载均衡，不会考虑更加复杂的调度策略。因此，如果CronJob调度框架希望在这个功能点上面发力的话，可以进一步完善注册中心。
 
-![](/images/blogs-arch-cron/cron-7.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-7.png)
 
 业务服务将节点信息上报给注册中心，这样一来CronJob调度器Master就能够获取到节点列表，进一步可以定制各种调度策略：
 
@@ -142,7 +142,7 @@ CronJob的基本形态：定时周期+任务。
 
 因此，我们可以抽象出一个Job SDK嵌入到业务服务。将包括注册、Job Executor接口定义、重试机制等等逻辑进一步封装，并提供统一的接入方式。
 
-![](/images/blogs-arch-cron/cron-8.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-arch-cron/cron-8.png)
 
 ## 参考
 1. [Cron维基百科](https://en.wikipedia.org/wiki/Cron)

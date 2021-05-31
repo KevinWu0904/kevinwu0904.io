@@ -13,7 +13,7 @@ draft: false
 ## 前言
 人的一生，会遇到无数次抉择，其中的某些转折点将会产生深远的影响，甚至伴随终生。努力决定下限，但选择决定上限！勤奋和汗水更多被提及，但方向和规划却往往被忽视。这一次，我想谈一谈自己在人生十字路口的抉择。
 
-![](/images/blogs-mind-decision/cross.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-mind-decision/cross.png)
 
 ## 抉择
 我在[《新的开始》](../mind-startup)一文中提到自己正处于团队组织架构调整的关键时期，这也让我不得不做出抉择。出于保密原则，我无法直接写明在字节的具体调整内容，但核心意思不变。

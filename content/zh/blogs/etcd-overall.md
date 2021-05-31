@@ -11,7 +11,7 @@ lastmod: '2021-05-24'
 draft: false
 ---
 
-![](/images/blogs-k8s-common/etcd-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-common/etcd-logo.png)
 
 [etcd](https://etcd.io/)不仅是[Kubernetes](https://kubernetes.io/)的核心存储组件，更是当下云原生时代的存储基石之一。
 
@@ -32,10 +32,10 @@ CoreOS同时为Container Linux提供集群化的管理方案，用户管理应�
 etcd的发展史主要分为两个大阶段，三个大的版本：
 
 1. Prototype到Stable：
-![](/images/blogs-etcd-overall/etcd-history-startup-stable.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/etcd-history-startup-stable.png)
 
 2. Stable到Graduated：
-![](/images/blogs-etcd-overall/etcd-history-stable-graduated.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/etcd-history-stable-graduated.png)
 
 从时间线上，我们可以看出v1 API版本的存在周期非常短，甚至无法保证读一致性问题，基本上用作Prototype。v2 API版本和etcd v2.0的发布，则标志着etcd进入稳定阶段。而v3 API版本和etcd v3.0的发布，则正式宣布etcd进入成熟阶段。
 
@@ -97,37 +97,37 @@ CoreOS团队在设计etcd之初，主要考虑了五大目标：
 ```bash
 $ go get github.com/mattn/goreman
 ```
-![](/images/blogs-etcd-overall/install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/install-1.png)
 3. 安装[etcd](https://github.com/etcd-io/etcd/releases)
 4. 以v3.4.9为例，下载etcd的[Procfile](https://github.com/etcd-io/etcd/blob/v3.4.9/Procfile)
 5. 启动goreman
 ```bash
 $ goreman -f Procfile start
 ```
-![](/images/blogs-etcd-overall/install-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/install-2.png)
 
 ### etcd write
 ```bash
 $ etcdctl put hello world --endpoints http://127.0.0.1:2379
 ```
-![](/images/blogs-etcd-overall/write.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/write.png)
 ### etcd read
 ```bash
 $ etcdctl get hello --endpoints http://127.0.0.1:2379
 ```
-![](/images/blogs-etcd-overall/read.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/read.png)
 ### etcd watch
 ```bash
 $ etcdctl watch hello --endpoints http://127.0.0.1:2379
 $ etcdctl put hello world1 --endpoints http://127.0.0.1:2379
 $ etcdctl put hello world2 --endpoints http://127.0.0.1:2379
 ```
-![](/images/blogs-etcd-overall/watch.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/watch.png)
 ### etcd delete
 ```bash
 $ etcdctl del hello --endpoints http://127.0.0.1:2379
 ```
-![](/images/blogs-etcd-overall/delete.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-etcd-overall/delete.png)
 
 ## etcd的核心原理概述
 1. 分布式共识算法：[raft](https://raft.github.io/)

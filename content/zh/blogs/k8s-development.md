@@ -10,7 +10,7 @@ lastmod: '2021-04-04'
 draft: false
 ---
 
-![](/images/blogs-k8s-common/k8s-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-common/k8s-logo.png)
 
 [Kubernetes](https://kubernetes.io/)的源码纷繁复杂，为了能够深入学习其原理，笔者尝试从0到1搭建一套完备的源码调试环境。不同于[gdb](https://www.gnu.org/software/gdb/)的全命令行终端调试，本套环境完全基于图形化界面，体验堪称完美！
 
@@ -24,25 +24,25 @@ draft: false
 2. 在Linux虚拟机中通过kubeadm安装单机版Kubernetes。
 3. 通过[GoLand](https://www.jetbrains.com/go/)和[dlv](https://github.com/go-delve/delve)远程调试Linux虚拟机中的Kubernetes进程。
 
-![设计思路](/images/blogs-k8s-development/k8s-development.png)
+![设计思路](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/k8s-development.png)
 
 ## 成果展示
 1. 两台虚拟机实例
-![](/images/blogs-k8s-development/vm.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/vm.png)
 
 2. 一个Kubernetes集群
-![](/images/blogs-k8s-development/vm-k8s-cluster.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/vm-k8s-cluster.png)
 
 3. 单步调试kube-apiserver
-![](/images/blogs-k8s-development/debug-kube-apiserver.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/debug-kube-apiserver.png)
 
 ## 宿主机前置依赖
 1. 笔者的宿主机是Macbook Pro（16英寸版本），机器配置如下：
-![](/images/blogs-k8s-development/mac.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/mac.png)
 2. 在宿主机上安装VMWare Fusion，版本如下：
-![](/images/blogs-k8s-development/vmware.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/vmware.png)
 3. 在宿主机上安装GoLand，版本如下：
-![](/images/blogs-k8s-development/goland.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/goland.png)
 
 总的来说，本套环境对于宿主机的要求并不多。理论上同样支持Windows OS，也支持免费虚拟机软件[VirtualBox](https://www.virtualbox.org/)。
 
@@ -69,13 +69,13 @@ $ apt-get install \
     gnupg \
     lsb-release -y
 ```
-![](/images/blogs-k8s-development/docker-install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-1.png)
 
 2. 添加docker官方GPG key
 ```bash
 $ curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
-![](/images/blogs-k8s-development/docker-install-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-2.png)
 
 3. 添加docker amd64 deb源
 ```bash
@@ -83,26 +83,26 @@ $ echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
   $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
-![](/images/blogs-k8s-development/docker-install-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-3.png)
 
 4.  更新deb源，查看docker-ce可选版本
 ```bash
 $ apt-get update
 $ apt-cache madison docker-ce
 ```
-![](/images/blogs-k8s-development/docker-install-4.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-4.png)
 
 5. 安装5:19.03.15~3-0~debian-buster版本
 ```bash
 $ apt-get install docker-ce=5:19.03.15~3-0~debian-buster docker-ce-cli=5:19.03.15~3-0~debian-buster containerd.io
 ```
-![](/images/blogs-k8s-development/docker-install-5.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-5.png)
 
 6. 安装成功
 ```bash
 $ systemctl status docker
 ```
-![](/images/blogs-k8s-development/docker-install-6.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/docker-install-6.png)
 
 ### 步骤三：安装kubeadm
 [kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/)是Kubernetes官方提供的安装工具，可用于快速部署Kubernetes集群。在本套源码调试环境中，我们需要一个基准Kubernetes集群，后续再基于该集群需要调试的CMD用Debug版本替换。
@@ -113,31 +113,31 @@ $ systemctl status docker
 ```bash
 $ apt-get install -y apt-transport-https ca-certificates curl
 ```
-![](/images/blogs-k8s-development/kubeadm-install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/kubeadm-install-1.png)
 
 2. 添加Google Cloud GPG key
 ```bash
 $ curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 ```
-![](/images/blogs-k8s-development/kubeadm-install-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/kubeadm-install-2.png)
 
 3. 添加Kubernetes deb源
 ```bash
 $ echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
 ```
-![](/images/blogs-k8s-development/kubeadm-install-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/kubeadm-install-3.png)
 
 4. 安装kubeadm、kubectl、kubelet
 ```bash
 $ apt-get install kubeadm=1.20.5-00 kubectl=1.20.5-00 kubelet=1.20.5-00 -y
 ```
-![](/images/blogs-k8s-development/kubeadm-install-4.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/kubeadm-install-4.png)
 
 5. 安装成功
 ```bash
 $ kubeadm
 ```
-![](/images/blogs-k8s-development/kubeadm-install-5.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/kubeadm-install-5.png)
 
 ### 步骤四：安装Kubernetes集群
 kubeadm只需要简单几个命令便能搭建生产可用的Kubernete集群。
@@ -147,7 +147,7 @@ kubeadm只需要简单几个命令便能搭建生产可用的Kubernete集群。
 $ free -h
 $ swapoff -a
 ```
-![](/images/blogs-k8s-development/k8s-install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/k8s-install-1.png)
 
 2. 修改docker默认cgroup driver
 ```bash
@@ -170,13 +170,13 @@ $ reboot
 ```bash
 $ kubeadm init
 ```
-![](/images/blogs-k8s-development/k8s-install-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/k8s-install-2.png)
 
 5. 虚拟机Kubernetes-Compute-Machine运行kubeadm join
 ```bash
 $ kubeadm join ... # 在kubeadm init的末尾会输出kubeadm join的具体命令，复制粘贴即可
 ```
-![](/images/blogs-k8s-development/k8s-install-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/k8s-install-3.png)
 
 6. 虚拟机Kubernetes-Control-Plane安装[flannel](https://github.com/flannel-io/flannel) CNI
 ```bash
@@ -206,7 +206,7 @@ FLANNEL_IPMASQ=true
 ```bash
 $ kubectl get nodes
 ```
-![](/images/blogs-k8s-development/vm-k8s-cluster.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/vm-k8s-cluster.png)
 
 ### 步骤五：安装Go
 1. wget安装包
@@ -227,7 +227,7 @@ $ export PATH="$PATH:$GOROOT/bin:$GOPATH/bin"
 ```bash
 $ go env
 ```
-![](/images/blogs-k8s-development/go-install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/go-install-1.png)
 
 ### 步骤六：安装delve
 1. 安装delve
@@ -240,7 +240,7 @@ $ go install github.com/go-delve/delve/cmd/dlv@latest
 $ dlv
 ```
 
-![](/images/blogs-k8s-development/delve-install-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/delve-install-1.png)
 
 ### 小结
 至此虚拟机环境搭建完成。在这一环节中，我们主要安装了一个基准Kubernetes集群，后续用于调试源码。
@@ -263,7 +263,7 @@ $ apt install rsync -y # 需要安装rsync这个前置依赖
 $ make all GOGCFLAGS="-N -l" GOLDFLAGS=""
 ```
 参考Kubernetes该Issue：[https://github.com/kubernetes/kubernetes/issues/77527](https://github.com/kubernetes/kubernetes/issues/77527)
-![](/images/blogs-k8s-development/debug-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/debug-2.png)
 
 3. 虚拟机查看kube-apiserver启动参数
 ```bash
@@ -325,13 +325,13 @@ $ mv /etc/kubernetes/manifests/kube-apiserver.yaml /etc/kubernetes/
 ```bash
 $ dlv exec --listen=:2345 --headless=true --api-version=2 _output/bin/kube-apiserver -- --advertise-address=172.16.38.139  --allow-privileged=true  --authorization-mode=Node,RBAC  --client-ca-file=/etc/kubernetes/pki/ca.crt  --enable-admission-plugins=NodeRestriction  --enable-bootstrap-token-auth=true  --etcd-cafile=/etc/kubernetes/pki/etcd/ca.crt  --etcd-certfile=/etc/kubernetes/pki/apiserver-etcd-client.crt  --etcd-keyfile=/etc/kubernetes/pki/apiserver-etcd-client.key  --etcd-servers=https://127.0.0.1:2379  --insecure-port=0  --kubelet-client-certificate=/etc/kubernetes/pki/apiserver-kubelet-client.crt  --kubelet-client-key=/etc/kubernetes/pki/apiserver-kubelet-client.key  --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname  --proxy-client-cert-file=/etc/kubernetes/pki/front-proxy-client.crt  --proxy-client-key-file=/etc/kubernetes/pki/front-proxy-client.key  --requestheader-allowed-names=front-proxy-client  --requestheader-client-ca-file=/etc/kubernetes/pki/front-proxy-ca.crt  --requestheader-extra-headers-prefix=X-Remote-Extra-  --requestheader-group-headers=X-Remote-Group  --requestheader-username-headers=X-Remote-User  --secure-port=6443  --service-account-issuer=https://kubernetes.default.svc.cluster.local  --service-account-key-file=/etc/kubernetes/pki/sa.pub  --service-account-signing-key-file=/etc/kubernetes/pki/sa.key  --service-cluster-ip-range=10.96.0.0/12  --tls-cert-file=/etc/kubernetes/pki/apiserver.crt  --tls-private-key-file=/etc/kubernetes/pki/apiserver.key
 ```
-![](/images/blogs-k8s-development/debug-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/debug-1.png)
 
 6. 宿主机GoLand打开Kubernetes源码，配置go remote
-![](/images/blogs-k8s-development/debug-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/debug-3.png)
 
 7. 启动！成功！撒花！
-![](/images/blogs-k8s-development/debug-kube-apiserver.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-development/debug-kube-apiserver.png)
 
 ## 总结
 本文详细记录了笔者从0到1搭建Kubernetes源码调试环境的关键步骤，最终达到通过GUI调试的目的和体验，相信该教程对于Kubernetes开发者来说会有较大帮助。另一方面，笔者自己也希望通过这样一套调试环境加深自己对Kubernetes的理解，为完善自己的云原生技术栈而努力。

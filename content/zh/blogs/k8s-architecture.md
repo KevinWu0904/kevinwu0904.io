@@ -10,7 +10,7 @@ lastmod: '2021-04-02'
 draft: false
 ---
 
-![](/images/blogs-k8s-common/k8s-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-common/k8s-logo.png)
 
 [Kubernetes](https://kubernetes.io/)的诞生不仅终结了容器编排的纷争，更带动了“云原生”理念的火热。作为[CNCF](https://www.cncf.io/)核心项目的Kubernetes同时极大提升了CNCF本身的知名度。
 
@@ -20,7 +20,7 @@ CNCF，全称Cloud Native Computing Foundation（云原生计算基金会），�
 > This new organization aims to advance the state-of-the-art for building cloud native applications and services, allowing developers to take full advantage of existing and to-be-developed open source technologies. Cloud native refers to applications or services that are container-packaged, dynamically scheduled and micro services-oriented.
 
 CNCF发展至今，其[Landscape](https://github.com/cncf/landscape)不断扩大，几乎包括软件开发的所有方面。
-![CNCF Landscape路线图](/images/blogs-k8s-architecture/cncf-landscape.png)
+![CNCF Landscape路线图](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-architecture/cncf-landscape.png)
 
 CNCF Landscape路线图分为十个步骤，每个步骤都是开发者在应用开发过程中需要思考的关键节点，它们分别是：
 1. 容器化（Containerization）
@@ -35,7 +35,7 @@ CNCF Landscape路线图分为十个步骤，每个步骤都是开发者在应用
 10. 软件发布（Software Distribution）
 
 CNCF托管的项目也与日俱进，以下是截止当前2021年4月的全景：
-![https://landscape.cncf.io/](/images/blogs-k8s-architecture/cncf-overview.png)
+![https://landscape.cncf.io/](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-architecture/cncf-overview.png)
 
 云原生是近年来极为火热的一个名词，但关于它本身的定义却逐渐从容器、微服务等具象的技术到云、弹性、容错、观测、管理等等抽象的概念。CNCF官方对于[云原生的定义](https://github.com/cncf/foundation/blob/master/charter.md)也会是与时俱进的，目前的版本描述如下：
 > Cloud native technologies empower organizations to build and run scalable applications in modern, dynamic environments such as public, private, and hybrid clouds. Containers, service meshes, microservices, immutable infrastructure, and declarative APIs exemplify this approach.
@@ -77,12 +77,12 @@ Kubernetes的诞生不仅仅有技术因素，还与当时的容器编排商业�
 
 事实上，Kubernetes的架构设计并非凭空产生，而是来自于Google内部的基础设施架构[Borg+Omega](https://research.google/pubs/pub43438/)。Google自2000年初便开始使用Linux容器化技术，因此Kubernetes成功的背后，是一个已经经历十多年验证的可靠系统。
 
-![Borg架构](/images/blogs-k8s-architecture/borg.png)
+![Borg架构](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-architecture/borg.png)
 
 ### 架构设计
 Kubernetes的架构理念与Borg同源，也是C/S模型。主体上可以分成Control Plane和Compute Machine。
 
-![Kubernetes架构](/images/blogs-k8s-architecture/k8s-components.png)
+![Kubernetes架构](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-architecture/k8s-components.png)
 
 Control Plane包括如下核心组件：
 * kube-apiserver：集群资源操作的唯一入口，创建与管理Kubernetes定义的核心对象。同时也包括认证、授权与访问控制。另一方面，暴露驱动整个Kubernetes集群工作的Watch接口。HA部署推荐多kube-apiserver实例，它们均对外提供服务能力。
@@ -289,7 +289,7 @@ func (dc *DeploymentController) syncDeployment(key string) error {
 
 可以看出，上述简化版代码和源代码的思路本质是一模一样的。并且实际对于Kubernetes来说，控制器模式从来都不是难点，真正难的地方是如何优化控制循环的性能，减少不必要的开销。Kubernetes解决该问题基于Informer机制：
 
-![Kubernetes Informer](/images/blogs-k8s-architecture/k8s-informer.png)
+![Kubernetes Informer](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-architecture/k8s-informer.png)
 
 Informer机制的原理如下：
 

@@ -10,7 +10,7 @@ lastmod: '2021-04-15'
 draft: false
 ---
 
-![](/images/blogs-golang-common/golang-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-common/golang-logo.png)
 
 Golang的Error Handling一直备受争议，官方和社区也持续提出各项改进方案。作为语言级别的error支持，Go对error的实现却异常简单，甚至可以说是简陋。那么，到底什么样的做法才是Golang Error Handling的最佳实践呢？
 
@@ -154,7 +154,7 @@ func bottom() error {
 ```
 不注意看的话，会以为和之前版本的`fmt.Errorf`一样。这里的区别是在`%v`和`%w`这两个不同的占位符上面，`%w`是Go1.13版本新增的占位符类型，内部通过结构体嵌套来记录error的原始类型。
 
-![](/images/blogs-golang-error/wrap.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-error/wrap.png)
 
 * Unwrap
 
@@ -173,7 +173,7 @@ for err != nil {
 // core error
 ```
 
-![](/images/blogs-golang-error/unwrap.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-error/unwrap.png)
 
 * Is和As
 

@@ -10,7 +10,7 @@ lastmod: '2021-04-20'
 draft: false
 ---
 
-![](/images/blogs-golang-common/golang-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-common/golang-logo.png)
 
 Context是Go语言标准库的组成之一，在Goroutine之间传播，能够提供Cancel和KV功能。
 
@@ -19,7 +19,7 @@ Context是Go语言标准库的组成之一，在Goroutine之间传播，能够�
 Goroutine基于[CSP](http://www.usingcsp.com/cspbook.pdf)理论模型，是Go语言的最小并发单元和任务执行的载体。由于Goroutine的生命周期是互相独立的，即使是由父Goroutine创建出子Goroutine的场景也不例外，因此我们**不能**在一个Goroutine运行过程中去杀死另一个Goroutine。
 
 但某些情况下，我们需要停止一个Goroutine的运行。例如：调用一个可能耗时较长的API，一定时间内如果不能返回结果就返回Timeout错误。这种时候需要依赖channel来完成这样的通信：
-![](/images/blogs-golang-context/goroutine-channel.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-context/goroutine-channel.png)
 
 完整的例子：（通过timeout channel来通知退出信号，同时在另一个Goroutine中监听这个退出信号）
 ```go
@@ -79,7 +79,7 @@ func call(ctx context.Context) error {
 ```
 
 进一步的，由于Context本身会串联起一棵Context树，因此对于某个ctx子节点的cancel操作能够cancel它的整棵子树：
-![](/images/blogs-golang-context/context-cancellation.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-context/context-cancellation.png)
 
 ### 问题二：Goroutine Local Storage
 所谓的**Goroutine Local Storage**是指Goroutine级别的本地存储，不同Goroutine之间互不可见。通俗点说，GLS可以想象成是一个`map[string]interface{}`，其中map的key是Goroutine ID。
@@ -125,7 +125,7 @@ func call2(ctx context.Context) {
 }
 ```
 
-![](/images/blogs-golang-context/context-kv.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-context/context-kv.png)
 
 ## Context源码剖析
 context包的源码加注释一共不超过600行（Go1.16版本），因此阅读起来并没有太多心智负担。context包的主要实现包括：1个接口和4个实现。
@@ -154,7 +154,7 @@ context包中一共有4种实现，它们分别是：
 4. timerCtx
 
 这4个实现包含继承关系：
-![](/images/blogs-golang-context/context-inheritance.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-context/context-inheritance.png)
 
 #### emptyCtx
 emptyCtx通常作为root context，它不包含任何KV，且永不过期，emptyCtx的实现非常简单：
@@ -249,7 +249,7 @@ func (c *valueCtx) Value(key interface{}) interface{} {
 	return c.Context.Value(key) // 递归寻找父Context是否包含这个key
 }
 ```
-![](/images/blogs-golang-context/context-find-kv.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-context/context-find-kv.png)
 
 #### cancelCtx
 cancelCtx是context标准库中的核心功能，它被广泛用于Goroutine的退出。context包中提供了常用方法`context.WithCancel()`：

@@ -10,7 +10,7 @@ lastmod: '2021-04-11'
 draft: true
 ---
 
-![](/images/blogs-k8s-common/k8s-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-common/k8s-logo.png)
 
 kube-apiserver是整个Kubernetes架构中的核心组件，也是唯一与存储组件etcd交互的服务。kube-apiserver负责集群中Kubernetes资源对象的增删改查，并对外提供资源变更的事件通知，驱动集群中形形色色的控制器，最终得以完成集群编排。
 
@@ -164,7 +164,7 @@ GET https://<master ip>:6443/ # 注：需要获取cluster-admin Role的service a
 ```
 
 kube-apiserver的路由设计遵循层级结构：
-![](/images/blogs-k8s-kube-apiserver/endpoint.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-kube-apiserver/endpoint.png)
 
 这里的层级结构将Kubernetes资源对象以“Group/Version/Resource”的方式组织。
 
@@ -446,7 +446,7 @@ type HorizontalPodAutoscalerSpec struct {
 ### 小结
 综上所述，Kubernetes通过conversion-gen生成的版本转换代码，将用户在yaml中定义的不同版本对象转换成包含所有字段的统一内部对象，从而无需在内存中同时维护资源对象的多个版本。值得注意的是，最终内部对象在持久化到etcd中，会再经过一次反向转换变成用户定义的yaml对象，最终存储。
 
-![](/images/blogs-k8s-kube-apiserver/conversion.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-kube-apiserver/conversion.png)
 
 ## kube-apiserver
 

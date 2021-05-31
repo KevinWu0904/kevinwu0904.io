@@ -10,7 +10,7 @@ lastmod: '2021-04-16'
 draft: false
 ---
 
-![](/images/blogs-golang-common/golang-logo.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-common/golang-logo.png)
 
 Go语言的依赖管理经历了漫长的迭代和演进，最终随着[Go Modules](https://golang.org/ref/mod)被官方采纳，形成大一统局面。回顾整个历史，Go依赖管理的实践之路其实颇为坎坷，中途甚至还曾引发Go官方团队和Go社区团队之间的纠纷。但从结果来看，Go Modules终结了Go语言依赖管理的乱象，对于广大Go开发者来说是个福音。
 
@@ -120,7 +120,7 @@ Go语言的import兼容性规则是指：
 
 Go的开发者采用业界通用的semantic versioning作为版本标识符，它形如（vmajor.minor.patch）：
 
-![](/images/blogs-golang-modules/semver.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/semver.png)
 
 Go的兼容性规则希望开发者遵守如下守则：
 1. 相同大版本，新包需要完全兼容旧包（通过诸如不删除弃用方法，不修改导出变量等手段）。例如：v1.3.1需要完全兼容v1.2.0。
@@ -129,7 +129,7 @@ Go的兼容性规则希望开发者遵守如下守则：
 
 进一步来说，go mod和dep核心的一个本质区别是：对同一个包的不同大版本，go mod在import路径中引入版本号，dep则始终保持保持不变的import路径。go mod这个非常巧妙的做法，能够完美解决go依赖管理中著名的“钻石型依赖”问题：
 
-![](/images/blogs-golang-modules/diamond.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/diamond.png)
 
 如上图所示：A直接依赖B和C，B依赖D的v1版本，C依赖D的v2版本，且D的这两个版本是不兼容的。这种情况下，无论是选择D v1还是D v2都无法得出正确的依赖构建，这便是钻石型依赖的难题。
 
@@ -137,7 +137,7 @@ Go的兼容性规则希望开发者遵守如下守则：
 
 由于D v1和D v2属于D的不同大版本，因此当C引入D的时候，需要在import路径中加入`/v2`：
 
-![](/images/blogs-golang-modules/resolve-diamond.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/resolve-diamond.png)
 
 因此go mod最终产生的依赖同时包括A、B、C、D v1和D v2，而不像dep那样需要在D v1和D v2之前做一个取舍。
 
@@ -158,18 +158,18 @@ go 1.15
 
 接下来详细阐述最小版本选择的原理，以Russ Cox的博客示例作为讲解：
 
-![](/images/blogs-golang-modules/mvs-1.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/mvs-1.png)
 
 #### 算法一：BuildList
 Go的依赖关系可以抽象成一张有向图，MVS首先要通过BuildList找到当前模块的完整构建视图。
 
 这是一个BFS（广度优先遍历）算法：首先将A1入队，然后将A1直接依赖的B1.2和C1.2入队，重复这个过程，最终能够得到一个初始列表结果：[A1, B1.2, C1.2, D1.3, D1.4, E1.2]。需要注意一点，由于可能存在依赖环路，因此算法会记录依赖是否曾经入队，保证每个依赖只进队一次，防止无限循环。
 
-![](/images/blogs-golang-modules/mvs-2.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/mvs-2.png)
 
 接下来根据兼容性原则，D1.3和D1.4属于同一个大版本，因此D1.3和D1.4是兼容的。MVS会选择其中较新的版本，最终的列表L是：[A1, B1.2, C1.2, D1.4, E1.2]。
 
-![](/images/blogs-golang-modules/mvs-3.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/mvs-3.png)
 
 具体的源码分析可以参考：[https://github.com/golang/go/blob/release-branch.go1.15/src/cmd/go/internal/mvs/mvs.go](https://github.com/golang/go/blob/release-branch.go1.15/src/cmd/go/internal/mvs/mvs.go)。值得注意的是由于依赖的列表往往需要通过网络请求Github等代码仓库网站，因此整个BFS为了加速是并行执行的。
 
@@ -199,7 +199,7 @@ Req的算法流程大致如下：
 
 例如A1当前依赖C1.2，但希望能够升级到C1.3：
 
-![](/images/blogs-golang-modules/mvs-4.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/mvs-4.png)
 
 算法流程是：
 * 在A1和C1.3之间新增一条有向边。
@@ -213,7 +213,7 @@ Req的算法流程大致如下：
 
 例如A1间接依赖的D1.4发现BUG，实际上可能是D1.3就引入的，因此希望降级到D1.2：
 
-![](/images/blogs-golang-modules/mvs-5.png)
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-golang-modules/mvs-5.png)
 
 算法流程是：
 * 标记D1.3、D1.4为不可用依赖。

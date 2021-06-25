@@ -459,3 +459,10 @@ spec:
 本文主要阐述了Helm在Kubernetes中的重要作用，并且简要概述了Helm的CLI工作流和Chart的组成。
 
 另外值得一提的是，笔者在寻找参考资料的时候发现其实最好的参考资料就是[Helm官方文档](https://helm.sh/zh/docs/)，强烈建议读者们仔细翻阅！
+
+## 后记
+在写本篇博客的同时，笔者主要是参考的是：[Helm官方文档](https://helm.sh/zh/docs/)。并且意外发现官方中文版文档中一小处翻译错误，笔者随即提交了一个[PR](https://github.com/helm/helm-www/pull/1140)来修复这一小处翻译错误。虽然这看似是一个微不足道的小fix，但笔者同样能够感受到给社区贡献价值的喜悦！
+
+![](https://kevinwu0904-blog-images.oss-cn-shanghai.aliyuncs.com/blogs-k8s-helm/20210625120426.png)
+
+开源社区就是这样一个能够连接全世界各地开发者的优秀社区，笔者也希望自己能够在这条道路上面逐步前行，共勉！

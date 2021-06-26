@@ -5,6 +5,8 @@ authors:
   - kevinwu
 tags:
   - k8s
+series:
+  - 云原生
 date: '2021-04-02'
 lastmod: '2021-04-02'
 draft: false

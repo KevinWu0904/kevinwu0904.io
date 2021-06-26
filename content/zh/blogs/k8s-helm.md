@@ -5,6 +5,9 @@ authors:
   - kevinwu
 tags:
   - k8s
+  - helm
+series:
+  - 云原生
 date: '2021-06-21'
 lastmod: '2021-06-21'
 draft: false

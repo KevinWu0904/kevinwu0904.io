@@ -8,6 +8,6 @@ main:
   - name: 文档
     url: /docs/
     weight: 3
-  - name: 标签
-    url: /tags/
+  - name: 系列
+    url: /series/
     weight: 4

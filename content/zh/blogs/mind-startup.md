@@ -5,6 +5,8 @@ authors:
   - kevinwu
 tags:
   - 随笔
+series:
+  - 感悟总结
 date: '2021-03-30'
 lastmod: '2021-03-30'
 draft: false

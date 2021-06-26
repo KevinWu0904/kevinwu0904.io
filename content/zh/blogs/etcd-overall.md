@@ -6,6 +6,8 @@ authors:
 tags:
   - etcd
   - k8s
+series:
+  - 云原生
 date: '2021-05-24'
 lastmod: '2021-05-24'
 draft: false

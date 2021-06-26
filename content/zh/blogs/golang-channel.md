@@ -4,6 +4,8 @@ authors:
   - kevinwu
 tags:
   - golang
+series:
+  - 深入理解Go语言
 date: '2021-06-24'
 lastmod: '2021-06-24'
 draft: true

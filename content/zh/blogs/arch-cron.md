@@ -5,6 +5,8 @@ authors:
   - kevinwu
 tags:
   - architecture
+series:
+  - 架构设计精粹
 date: '2021-04-26'
 lastmod: '2021-04-27'
 draft: false

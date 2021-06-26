@@ -1,4 +1,4 @@
 ---
-title: Series
+title: Docs
 layout: doc-list
 ---

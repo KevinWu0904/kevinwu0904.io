@@ -5,7 +5,7 @@ main:
   - name: Blogs
     url: /blogs/
     weight: 2
-  - name: Series
+  - name: Docs
     url: /docs/
     weight: 3
   - name: Tags

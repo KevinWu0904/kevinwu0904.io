@@ -5,7 +5,7 @@ main:
   - name: 博客
     url: /blogs/
     weight: 2
-  - name: 系列
+  - name: 文档
     url: /docs/
     weight: 3
   - name: 标签

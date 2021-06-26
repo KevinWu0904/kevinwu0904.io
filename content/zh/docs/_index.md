@@ -1,4 +1,4 @@
 ---
-title: 系列
+title: 文档
 layout: doc-list
 ---

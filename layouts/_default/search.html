@@ -1,0 +1,120 @@
+{{ define "main" }}
+<div class="w-full max-w-screen-xl lg:px-4 xl:px-8 mx-auto">
+  <article class="mx-6 my-8">
+    <h1 id="search-count" class="font-bold text-3xl text-primary-text"></h1>
+  </article>
+  <div id="search-result" class="bg-secondary-bg rounded overflow-hidden px-4 divide-y"> 
+  </div> 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    const qs = new URLSearchParams(location.search);
+    const searchResult = document.querySelector('#search-result');
+    const searchCount = document.querySelector('#search-count');
+
+    const fuseOptions = {
+      shouldSort: true,
+      includeMatches: true,
+      threshold: 0.0,
+      tokenize: true,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [{
+          name: "title",
+          weight: 0.8
+        },
+        {
+          name: "summary",
+          weight: 0.5
+        },
+        {
+          name: "tags",
+          weight: 0.3
+        },
+        {
+          name: "date",
+          weight: 0.3
+        },
+      ]
+    };
+
+    let fuse = null
+
+    async function getFuse() {
+      if (fuse == null) {
+        const resp = await fetch('/index.json', {
+          method: 'get'
+        })
+        const indexData = await resp.json()
+        fuse = new Fuse(indexData, fuseOptions);
+      }
+      return fuse
+    }
+
+    function render(items) {
+      console.log(items);
+      return items.map(item => {
+        item = item.item
+        return `
+<div class="px-2 py-6">
+  <div class="flex flex-col-reverse lg:flex-row justify-between">
+    <div class="w-full lg:w-2/3">
+      <div class="my-2">
+        <div class="mb-4">
+          <a href="${item.permalink}" class="font-bold text-xl hover:text-eureka">${item.title}</a>
+        </div>
+        <div class="content">
+          ${item.summary}
+          <p class="more">
+            <a href="${item.permalink}" title="${item.title}">阅读全文<span class="meta-nav">→</span></a>
+          </p>
+        </div>
+      </div>
+      <div class="flex flex-wrap flex-row items-center my-2 text-tertiary-text">
+        <div class="mr-6 my-2">
+          <i class="fas fa-calendar mr-1"></i>
+          <span>${item.date}</span>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>`;
+      }).join('');
+    }
+
+    function updateDOM(html, keyword, number) {
+      document.title = document.title.replace(/包含关键词.*?文章/, `包含关键词 ${keyword} 的文章`)
+      searchResult.innerHTML = html
+      searchCount.innerHTML = `共查询到 ${number} 篇文章`
+    }
+
+    async function search(searchString) {
+      console.log(searchString);
+      let result = [];
+      if(searchString) {
+        const fuse = await getFuse()
+        result = fuse.search(searchString)
+      }
+      const html = render(result)
+      updateDOM(html, searchString, result.length)
+    }
+
+    document.querySelectorAll('input[name="q"]').forEach(el => el.value = qs.get('q'));
+    search(qs.get('q') || '')
+
+    window.blogSearch = function(keyword) {
+      if(!keyword) {
+        return;
+      }
+
+      history.pushState('', '', location.pathname + '?q=' + encodeURIComponent(keyword));
+      document.querySelectorAll('input[name="q"]').forEach(el => el.value = keyword);
+      search(keyword);
+    }
+  })
+</script>
+{{ end }}

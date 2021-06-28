@@ -41,3 +41,9 @@ taxonomies:
 
 build:
   useResourceCacheWhen: always
+
+outputs:
+  home:
+  - HTML
+  - RSS
+  - JSON

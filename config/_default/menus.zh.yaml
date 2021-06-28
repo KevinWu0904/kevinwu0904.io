@@ -11,3 +11,6 @@ main:
   - name: 系列
     url: /series/
     weight: 4
+  - name: 归档
+    url: /archieve/
+    weight: 5

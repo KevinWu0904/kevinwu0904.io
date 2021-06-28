@@ -1,0 +1,59 @@
+{{ define "main" }}
+<article class="mx-6 my-8">
+    <h1 class="font-bold text-3xl text-primary-text">{{ .Title }}</h1>
+    {{ with .Content }}
+    <div class="content">
+        {{ . }}
+    </div>
+    {{ end }}
+</article>
+<div class="bg-secondary-bg rounded px-6">
+    <div class="content">
+        <script type='text/javascript' src="https://lib.baomitu.com/jquery/1.11.1/jquery.min.js"></script>
+        <style type="text/css">.car-collapse .car-yearmonth { cursor: s-resize; } </style>
+        <script type="text/javascript">
+            jQuery(document).ready(function() {
+                jQuery('.car-collapse').find('.car-yearmonth').click(function() {
+                    jQuery(this).next('ul').slideToggle('fast');
+                });
+                
+                jQuery('.car-collapse').find('.car-toggler').click(function() {
+                    if ( '展开' == jQuery(this).text() ) {
+                        jQuery(this).parent('.car-container').find('.car-monthlisting').show();
+                        jQuery(this).text('折叠');
+                    } else {
+                        jQuery(this).parent('.car-container').find('.car-monthlisting').hide();
+                        jQuery(this).text('展开');
+                    }
+
+                return false;
+              });
+            });
+        </script>
+        <div class="car-container car-collapse">
+            <br></br>
+
+            <a href="#" class="car-toggler">折叠</a>
+          
+            <ul class="car-list">
+                {{ range (.Site.RegularPages.GroupByDate "2006 年 1 月") }}
+                    <li>
+                        <span class="car-yearmonth"><h2>{{ .Key }} <span title="Post Count"> 总计 {{ len .Pages }} 篇 </h2> </span></span>
+                        <ul class="car-monthlisting">
+                        {{ range .Pages }}
+                            {{ if ne .Title "归档" "搜索" }}
+                                <li>
+                                    <a href="{{ .Permalink }}">{{ .Title }} </a>
+                                </li>
+                            {{ end }}
+                        {{ end }}
+                        </ul>
+                    </li>
+                {{ end }}
+            </ul>
+
+            <br></br>
+        </div>
+    </div>
+</div>
+{{ end }}

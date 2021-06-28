@@ -41,11 +41,9 @@
                         <span class="car-yearmonth"><h2>{{ .Key }} <span title="Post Count"> 总计 {{ len .Pages }} 篇 </h2> </span></span>
                         <ul class="car-monthlisting">
                         {{ range .Pages }}
-                            {{ if ne .Title "归档" "搜索" }}
-                                <li>
-                                    <a href="{{ .Permalink }}">{{ .Title }} </a>
-                                </li>
-                            {{ end }}
+                            <li>
+                                <a href="{{ .Permalink }}">{{ .Title }} </a>
+                            </li>
                         {{ end }}
                         </ul>
                     </li>

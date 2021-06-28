@@ -32,7 +32,7 @@
           weight: 0.5
         },
         {
-          name: "tags",
+          name: "series",
           weight: 0.3
         },
         {
@@ -70,7 +70,8 @@
         <div class="content">
           ${item.summary}
           <p class="more">
-            <a href="${item.permalink}" title="${item.title}">阅读全文<span class="meta-nav">→</span></a>
+            <br></br>
+            <a href="${item.permalink}" title="${item.title}">阅读全文<span class="meta-nav"> → </span></a>
           </p>
         </div>
       </div>
@@ -79,7 +80,15 @@
           <i class="fas fa-calendar mr-1"></i>
           <span>${item.date}</span>
         </div>
-      </div>  
+        <div class="mr-6 my-2">
+          <i class="fas fa-clock mr-1"></i>
+          <span>${item.readingTime} 分钟阅读时长</span>
+        </div>
+        <div class="mr-6 my-2">
+          <i class="fas fa-th-list mr-1"></i>
+          <span>${item.series}</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>`;

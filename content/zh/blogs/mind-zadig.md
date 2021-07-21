@@ -136,3 +136,13 @@ Zadig毫无疑问是业界优秀的CI/CD产品，它也是真正理解微服务�
 虽然很遗憾的是飞书音视频团队最终剥离了在Zadig上面的服务构建，只保留一些定时任务，整体转向字节内部的DevOps技术体系。但我们知道团队业务不闭环以及企业自研技术体系是制约根因。
 
 我们充分感受到Zadig的优秀设计思想是非常值得字节DevOps团队借鉴学习的，相信Zadig会有更美好未来！
+
+## 后记
+**===2021.7.21更新部分 起始===**
+笔者在字节跳动飞书对Zadig的使用经验和感悟最终也有幸被收录：
+
+* KodeRover Zadig官方博客：[https://koderover.com/blog/2021/07/20/_20/](https://koderover.com/blog/2021/07/20/_20/)
+* 开源中国：[https://my.oschina.net/koderover/blog/5138022](https://my.oschina.net/koderover/blog/5138022)
+* 微信公众号：[https://mp.weixin.qq.com/s/4VT3j8D_B2qMgFKrU3R-yA](https://mp.weixin.qq.com/s/4VT3j8D_B2qMgFKrU3R-yA)
+
+**===2021.7.21更新部分 结束===**

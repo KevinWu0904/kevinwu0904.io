@@ -3,7 +3,7 @@ title: 吴国华
 draft: false
 role: 软件工程师
 avatar: images/avatar.jpg
-bio: Go语言/微服务/DevOps/云原生
+bio: Go语言/微服务/DevOps/音视频
 organization:
   name: 字节跳动
   url: https://bytedance.com/
